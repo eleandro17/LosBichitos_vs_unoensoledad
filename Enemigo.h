@@ -1,16 +1,22 @@
 #ifndef ENEMIGO_H
 #define ENEMIGO_H
 
-#include "Entidad.h"
+#include <ctime>
 
-class Enemigo : public Entidad {
-private:
-	int resistencia;
+// #include "Entidad.h" 
+// esta clase se fue. Pienso que no tenía real sentido practico. Puedo implementar herencia y polimorfismo en los  tipos de enemigo sin complicar tanto el codigo
+
+class Enemigo {
 public:
-	Enemigo(int posX, int posY, int r);
-	void dibujar() override;
-	void mover() override;
+	int x, y;
+	int resistencia; //declaro aca pero todavia no lo uso
+	Enemigo(int posX, int posY, int resistencia);
+	void dibujar();
+	void mover();
+	void borrar();
+	
+	clock_t tempo;
+	clock_t paso;
 };
-
 #endif
 

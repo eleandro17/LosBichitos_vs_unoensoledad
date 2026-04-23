@@ -2,6 +2,7 @@
 #include <conio2.h>   // la libre para manejar los caracteres en consola
 #include "Jugador.h"
 #include "Enemigo.h"
+#include <windows.h> //esta para el sleep, tal vez lo puedo integrar al reloj conctime
 
 using namespace std;
 
@@ -21,7 +22,7 @@ void pantallaEntrada() {
 	cout << "TP FINAL - Programacion en C++";
 	
 	gotoxy(15, 9);
-	cout << "Alumno: Emilio";
+	cout << u8"Alumno: Emilio Gómez Viera";
 	
 	gotoxy(15, 11);
 	cout << "Instrucciones:";
@@ -37,24 +38,36 @@ void pantallaEntrada() {
 	getch(); // espera una tecla
 }
 
-
 int main() {
-	
 	pantallaEntrada();
+	//clrscr();
 	
-	clrscr(); // limpia pantalla
+	Jugador jugador(40, 20, 3);
+	Enemigo enemigo(10, 5, 2);
 	
-	// Crear un jugador en la parte inferior
-	Jugador jugador(40, 20, 3); // posición (40,20), 3 vidas
-	jugador.dibujar();
+	bool running = true;
+	while (running) {
+		
+		jugador.borrar();
+		enemigo.borrar();
+		
+		enemigo.mover();
+		if (_kbhit()) {
+			char tecla = _getch();
+			if (tecla == 'q' || tecla == 27) { running = false; continue; }
+			jugador.mover(tecla);
+		}
+		
+		
+		jugador.dibujar();
+		enemigo.dibujar();
+		
+		Sleep(30);
+	}
 	
-	// Crear un enemigo en la parte superior
-	Enemigo enemigo(10, 5, 2); // posición (10,5), resistencia 2
-	enemigo.dibujar();
-	
-	gotoxy(1, 23);
-	cout << "Presione una tecla para salir...";
-	getch();
+	// volver a pantalla anterior
+	clrscr();
+	pantallaEntrada();
 	
 	return 0;
 }

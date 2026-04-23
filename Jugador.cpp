@@ -1,21 +1,32 @@
 #include <conio2.h>
 #include "Jugador.h"
 
-Jugador::Jugador(int posX, int posY, int v) : Entidad(posX, posY), vidas(v) {}
+Jugador::Jugador(int posX, int posY, int v){
+	x = posX;
+	y = posY;
+	vidas = v;
+}
 
 void Jugador::dibujar() {
-	textcolor(LIGHTCYAN);
 	gotoxy(x, y);
-	putch('A'); // nave representada por 'A'
+	textcolor(LIGHTBLUE);
+	putch('N'); // dibujito del jugador
+	//textcolor(WHITE);  // restaurar color por defecto? No se por que sucede esto
+
 }
 
-void Jugador::mover() {
-	if (kbhit()) {
-		char tecla = getch();
-		if (tecla == 'a' && x > 1) x--;
-		if (tecla == 'd' && x < 78) x++;
-	}
+void Jugador::borrar() {
+	gotoxy(x,y);
+	textcolor(RED);
+	putch('-');
+	
+}
+void Jugador::mover(char tecla) {
+	if (tecla == 'a' && x > 1)  x--;
+	if (tecla == 'd' && x < 79) x++;
 }
 
-void Jugador::perderVida() { vidas--; }
-int Jugador::getVidas() const { return vidas; }
+
+
+
+
