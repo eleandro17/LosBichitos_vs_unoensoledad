@@ -33,7 +33,7 @@ void Bala::mover() {
 	tempo = clock();
 	borrar();
 	y += velocidad;
-	if (y < 1 || y > 24) {
+	if (y < 1 || y > 27) {
 		activa = false;
 		return;
 	}

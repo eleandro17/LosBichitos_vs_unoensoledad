@@ -3,14 +3,11 @@
 #include "Jugador.h"
 #include "Enemigo.h"
 #include <windows.h> //esta para el sleep, tal vez lo puedo integrar al reloj conctime
-
+#include "GrupoEnemigos.h"
 using namespace std;
 
-const int FILAS = 3;
-const int COLS = 8;
-
 void pantallaEntrada() {
-	clrscr(); // limpia la pantalla
+	clrscr();
 	
 	textcolor(LIGHTBLUE);
 	gotoxy(20, 2);
@@ -38,63 +35,40 @@ void pantallaEntrada() {
 	
 	gotoxy(15, 16);
 	cout << "Apretá una tecla para empezar";
-	getch(); // espera una tecla
+	getch();
 }
 
 int main() {
 	pantallaEntrada();
 	
-	Jugador jugador(40, 20, 3);
-		
-	Enemigo enemigos[FILAS][COLS];
+	Jugador jugador(40, 27, 3);
 	
-	{//inicializacion de enemigos
-		char fila0[] = "TP_FINAL";
-		char fila1[] = "_INTRO__";
-		char fila2[] = "PROGRAMAC";
+	GrupoEnemigos grupo;
+	grupo.inicializar();
+	
+	bool running = true;
+	while (running) {
 		
-		for (int c = 0; c < COLS; c++)
-			enemigos[0][c] = Enemigo(10 + c*8, 3, 1, fila0[c]);
-		for (int c = 0; c < COLS; c++)
-			enemigos[1][c] = Enemigo(10 + c*8, 5, 1, fila1[c]);
-		for (int c = 0; c < COLS; c++)
-			enemigos[2][c] = Enemigo(10 + c*8, 7, 1, fila2[c]);
+		jugador.borrar();
+		grupo.borrar();
+		
+		jugador.actualizarBalas();
+		grupo.actualizarBalas();
+		grupo.mover();
+		
+		if (_kbhit()) {
+			char tecla = _getch();
+			if (tecla == 'q' || tecla == 27) { running = false; continue; }
+			jugador.mover(tecla);
+			if (tecla == ' ') jugador.disparar();
+		}
+		
+		jugador.dibujar();
+		grupo.dibujar();
+		
+		Sleep(20);
 	}
-			//loop de juego
-			bool running = true;
-			while (running) {
-				
-				jugador.borrar();
-				
-				for (int f = 0; f < FILAS; f++)
-					for (int c = 0; c < COLS; c++)
-						enemigos[f][c].borrar();
-						
-						jugador.actualizarBalas();
-						
-						for (int f = 0; f < FILAS; f++)
-							for (int c = 0; c < COLS; c++) {
-								enemigos[f][c].actualizarBala();
-								enemigos[f][c].mover();
-						}
-							
-							if (_kbhit()) {
-								char tecla = _getch();
-								if (tecla == 'q' || tecla == 27) { running = false; continue; }
-								jugador.mover(tecla);
-								if (tecla == ' ') jugador.disparar();
-							}
-							
-							jugador.dibujar();
-							
-							for (int f = 0; f < FILAS; f++)
-								for (int c = 0; c < COLS; c++)
-									enemigos[f][c].dibujar();
-									
-									Sleep(20);
-			}
 	
-	// volver a pantalla anterior
 	clrscr();
 	pantallaEntrada();
 	

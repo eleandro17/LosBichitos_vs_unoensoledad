@@ -4,25 +4,41 @@
 #include <ctime>
 #include "Bala.h"
 
-
 class Enemigo {
 public:
 	int x, y;
-	int resistencia; //declaro aca pero todavia no lo uso
-	Enemigo(int posX, int posY, int resistencia, char sim);
-	void dibujar();
-	void mover();
-	void borrar();
+	int resistencia;
+	char simbolo;
+	int color;
 	
 	clock_t tempo;
 	clock_t paso;
+	Bala bala;
 	
-	Bala bala; // cada enemigo tiene una sola bala
+	Enemigo();
+	Enemigo(int posX, int posY, int res, char sim, int col);
+	
+	virtual void dibujar(); //  virtual, la mama dibuja en RED
+	void mover();
+	void borrar();
 	void disparar();
 	void actualizarBala();
-	char simbolo;
 	
-	Enemigo(); // constructor por defecto
+	virtual ~Enemigo() {} // destructor virtual, porque hay delete con puntero
 };
-#endif
 
+class EnemigoMed : public Enemigo {
+public:
+	EnemigoMed();
+	EnemigoMed(int posX, int posY, char sim);
+	void dibujar() override; //  dibuja YELLOW
+};
+
+class EnemigoDuro : public Enemigo {
+public:
+	EnemigoDuro();
+	EnemigoDuro(int posX, int posY, char sim);
+	void dibujar() override; //  dibuja LIGHTGREEN
+};
+
+#endif
