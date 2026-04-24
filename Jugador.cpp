@@ -26,6 +26,21 @@ void Jugador::mover(char tecla) {
 	if (tecla == 'd' && x < 79) x++;
 }
 
+void Jugador::disparar() {
+	for (int i = 0; i < MAX_BALAS_JUGADOR; i++) {
+		if (!balas[i].activa) {
+			balas[i].init(x, y - 1, -1); // velocSube
+			return;
+		}
+	}
+	// si todas activas, no dispara
+}
+void Jugador::actualizarBalas() {
+	for (int i = 0; i < MAX_BALAS_JUGADOR; i++) {
+		balas[i].mover();
+	}
+}
+
 
 
 
