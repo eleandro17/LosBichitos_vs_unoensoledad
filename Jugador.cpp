@@ -11,7 +11,7 @@ void Jugador::dibujar() {
 	gotoxy(x, y);
 	textcolor(LIGHTBLUE);
 	putch('N'); // dibujito del jugador
-	//textcolor(WHITE);  // restaurar color por defecto? No se por que sucede esto
+	
 
 }
 
@@ -33,7 +33,7 @@ void Jugador::disparar() {
 			return;
 		}
 	}
-	// si todas activas, no dispara
+	// si estan todas activas, no dispara
 }
 void Jugador::actualizarBalas() {
 	for (int i = 0; i < MAX_BALAS_JUGADOR; i++) {
@@ -41,7 +41,24 @@ void Jugador::actualizarBalas() {
 	}
 }
 
+void Jugador::recibirImpacto() {
+	vidas--;
+	// unefectito corto
+	gotoxy(x, y);
+	textcolor(RED);
+	putch('X');
+}
 
+bool Jugador::estaVivo() {
+	return vidas > 0;
+}
 
-
-
+void Jugador::dibujarHUD() {
+	gotoxy(3, 29);
+	textcolor(LIGHTRED);
+	cprintf("VIDAS: ");
+	for (int i = 0; i < vidas; i++)
+		cprintf("<3 ");
+	for (int i = vidas; i < 3; i++)
+		cprintf("   ");
+}

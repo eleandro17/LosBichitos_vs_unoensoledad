@@ -7,13 +7,18 @@ UNL
  TP Final — Introducción a la Programación 
  Alumno: Emilio Leandro Gómez Viera
 
-Este es el readme del 4to commit, lo debí haber creado al principio para trackear  mejor. Pero lo cree ahora que hice cambios en el diseño que no se me habían aparecido antes. Los explico mas abajo.
+5to COMMIT. Este fue largo, mas bien tedioso
+- Se agregaron metodos recibirImpacto en el jugador y en el enemigo.
+- En el jugador un bool estaVivo para obtener el flag. Un metodo que escribe un miniHUD con las vidas que va perdiendo
+- Se agrega chequearColisiones en Grupoenemigos
+- Se crea una pantalla consu metodo pantallafin() pero como se va engordando el main saqué las 2 a un fichero aparte, y seguramente haga lo mismo con el loop de juego despues.
+
 
 ---
 
 ## Descripción
 
-Una simplificación del clásico *Space Invaders* pero desarrollado en C++ con consola de texto. Tenes que eliminar tres filas de enemigos que avanzan en el patrón de movimiento característico (esto en este commit), mientras evitas sus ataques.
+Una simplificación del clásico *Space Invaders* pero desarrollado en C++ con consola de texto. Tenes que eliminar tres filas de enemigos que avanzan en el patrón de movimiento característico , mientras evitas sus ataques.
 
 
 
@@ -32,57 +37,30 @@ Una simplificación del clásico *Space Invaders* pero desarrollado en C++ con c
 
 ## Estructura del proyecto
 
-```
 ├── main.cpp
 ├── Jugador.h / Jugador.cpp
 ├── Enemigo.h / Enemigo.cpp ---> acá creé 2 subclases que sobreescriben dibujar()
 ├── GrupoEnemigos.h / GrupoEnemigos.cpp
 └── Bala.h / Bala.cpp
-```
+└──Pantallas.h/Pantallas.cpp --> esto para limpiar el main, y un poco para separar responsabilidades tambien.
+
 
 ---
 
-## Diseño orientado a objetos
-
-Recien en este commit es que aplico --> Herencia y polimorfismo.
-Antes había pensado hacer una clase madre Entidad con hijas: Jugador y Enemigo, pero me iba a resultar poco práctico.
-Despues decidí hacer subclases a partir de Enemigo: EnemigoMedio y EnemigoDuro
-
-## SUBCLASES nuevas (o clases hijas)
-La clase `Enemigo` es la clase Madre. Define el comportamiento común (moverse, disparar, dibujar) y declara `dibujar()` como método `virtual`, lo que permite que cada subclase lo sobreescriba con su propio color:
-
-El array de punteros `Enemigo*` puede contener objetos de cualquiera de los tres tipos. Al llamar `enemigos[f][c]->dibujar()`.
+## Se implementaron ( al poder recibir daño) las diferentes resistencias de las clases hijas.
 
 Enemigo          → color RED,        resistencia 1 // estas todavías no implementadas
 >(hija)EnemigoMed   → color YELLOW,     resistencia 2
 >(hija)EnemigoDuro  → color LIGHTGREEN, resistencia 3
 
- Este es mi mejor polimorfismo por ahora. Son conceptos que todavía me resultan incómodos de aplicar.
+El Centro de atención de este commit fue un bug de colisión: podía recibir daño y perder vidas pero no dañar (ni matar) a los enemigos del array.
+Eran varias cosas:
+- No había inicializado vivo en el constructor de Enemigo ( con lo cual nunca se seteaba el flag para ningun lado) 
+- La tolerancia de la colisión era demasiado estricta, después busqué y encontré la solución por ahí ( todavía me confunde esto de usar consola como si estuvieramos en una época pre-framebuffer, pero a la vez escribiendo en una interfaz con framebuffer).
+- Los enemigos eran inmortales visualmente ( agregué unos chequeadores para debbuggear que los dejo hasta ultima hora), eran como zombies que se redibujaban y disparaban aunque ya matados en la lógica. Era que el flag nunca se usaba en los métodos de dibujar, de borrar y de actualizarBalas.
 
-### Punteros
+Hay otros detalles que estan comentados en el código.
 
-Este es otro punto que me cuesta bastante aún. Incluso habiendo visto los smartpopinters en Programacion1 
-
-Los enemigos se crean con `new` y se liberan con `delete` en el destructor de `GrupoEnemigos`:
-
-```cpp
-enemigos[0][c] = new EnemigoDuro(...);
-enemigos[1][c] = new EnemigoMed(...);
-enemigos[2][c] = new Enemigo(...);
-```
-
-Hay un destructor virtual en `Enemigo` que hace que al hacer `delete` sobre un puntero base se llame el destructor correcto. Esto no está en la cátedra, pero tuve que buscar porque no supe  sortear un montón de warnings de compilación.
-
-# Clase nueva: GrupoEnemigos
-
-Encapsula toda la lógica colectiva de los enemigos: inicialización, movimiento grupal, detección de borde los disparos. No hereda de `Enemigo`, maneja el bloque de los 3 arrays ( correspondientes a las clases madre, y las 2 hijas)
-Tuve que crearla al darme cuenta que tenía que hacer el movimiento típico del spaceinvaders(toca borde, baja) y se me complicaba manejandolo de la forma anterior. 
-Tambien es que el main se me iba quedando muy congestionado y con esto queda mas limpio.
-
-
-
-# Las balas
-
-El jugador como el enemigo tienen su propio array/instancia de `Bala`. Cada bala maneja su propio temporizador interno (los saqué del código de ejemplo)para moverse a velocidad independiente del loop principal. 
+ 
 
 

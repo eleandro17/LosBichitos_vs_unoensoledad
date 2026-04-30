@@ -12,10 +12,15 @@ public:
 	void dibujar();
 	void borrar();
 	void mover(char tecla);
+	
 	//el metodo de disparo y las balas
 	Bala balas[MAX_BALAS_JUGADOR];
 	void disparar();
 	void actualizarBalas();
+	
+	void recibirImpacto(); //  esto es lo 
+	bool estaVivo();       //  nuevo
+	void dibujarHUD(); //las vidas del jugador. Tal vez despues hago un HUD unificado para no tener tantos metodos dando vueltas
 };
 
 #endif

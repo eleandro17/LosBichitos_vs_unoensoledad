@@ -5,6 +5,7 @@
 
 #include <ctime>
 #include "Enemigo.h"
+#include "Jugador.h"
 
 const int FILAS = 3;
 const int COLS  = 8;
@@ -24,6 +25,8 @@ public:
 	void dibujar();
 	void borrar();
 	void actualizarBalas();
+	
+	void chequearColisiones(Jugador& jugador); //  nuevo
 };
 
 #endif

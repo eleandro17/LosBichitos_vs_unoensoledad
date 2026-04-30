@@ -4,15 +4,17 @@
 
 // -- Enemigo clase madre ------------------------------------------
 Enemigo::Enemigo() {
-	x = 0; y = 0; resistencia = 1; color = RED; simbolo = '?';
+	x = 0; y = 0; resistencia = 1; color = RED; simbolo = '?'; vivo = true;
 	paso = CLOCKS_PER_SEC *2;
 	tempo = clock();
 }
 
 Enemigo::Enemigo(int posX, int posY, int res, char sim, int col) {
 	x = posX; y = posY; resistencia = res; simbolo = sim; color = col;
+	vivo = true; // estoooo faltaba
 	paso = CLOCKS_PER_SEC * 5;
 	tempo = clock();
+
 }
 
 void Enemigo::dibujar() {
@@ -26,13 +28,7 @@ void Enemigo::borrar() {
 	textcolor(BLUE);
 	putch('-');
 }
-// este metodo queda sin llamarse porque paso a mover del bloque, pero lo dejo por si llego a necesitar despues
-void Enemigo::mover() {
-	if (tempo + paso > clock()) return;
-	tempo = clock();
-	if (y < 23) y += 1;
-	else        y = 5;
-}
+
 
 void Enemigo::disparar() {
 	if (!bala.activa)
@@ -42,6 +38,18 @@ void Enemigo::disparar() {
 void Enemigo::actualizarBala() {
 	if (rand() % 1000 == 0) disparar();
 	bala.mover();
+}
+
+bool Enemigo::recibirImpacto() {
+	gotoxy(12, 31);
+	cprintf("IMPACTO RECIBIDO res=%d", resistencia);  // un chequeador para debuggear,pero puede quedar, no es feo
+	resistencia--;
+	if (resistencia <= 0) {
+		vivo = false;
+		borrar();
+		return true;
+	}
+	return false;
 }
 
 // -- EnemigoMed --------------------------------------------

@@ -10,6 +10,7 @@ public:
 	int resistencia;
 	char simbolo;
 	int color;
+	bool vivo; // esto se agrega hoy
 	
 	clock_t tempo;
 	clock_t paso;
@@ -23,6 +24,7 @@ public:
 	void borrar();
 	void disparar();
 	void actualizarBala();
+	bool recibirImpacto(); // nuevo, devuelve true si murio
 	
 	virtual ~Enemigo() {} // destructor virtual, porque hay delete con puntero
 };
@@ -38,7 +40,7 @@ class EnemigoDuro : public Enemigo {
 public:
 	EnemigoDuro();
 	EnemigoDuro(int posX, int posY, char sim);
-	void dibujar() override; //  dibuja LIGHTGREEN
+	void dibujar() override; //  dibuja en LIGHTGREEN
 };
 
 #endif
