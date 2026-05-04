@@ -27,6 +27,8 @@ public:
 	void actualizarBalas();
 	
 	void chequearColisiones(Jugador& jugador); //  nuevo
+	
+	bool todosEliminados();//metodo para chequearsi murieron todos
 };
 
 #endif

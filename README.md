@@ -7,19 +7,20 @@ UNL
  TP Final — Introducción a la Programación 
  Alumno: Emilio Leandro Gómez Viera
 
-5to COMMIT. Este fue largo, mas bien tedioso
-- Se agregaron metodos recibirImpacto en el jugador y en el enemigo.
-- En el jugador un bool estaVivo para obtener el flag. Un metodo que escribe un miniHUD con las vidas que va perdiendo
-- Se agrega chequearColisiones en Grupoenemigos
-- Se crea una pantalla consu metodo pantallafin() pero como se va engordando el main saqué las 2 a un fichero aparte, y seguramente haga lo mismo con el loop de juego despues.
+6to COMMIT. 
+-Agregada condición de victoria con un método previo(todosEliminados())
+-Algunos ajustes y cuestiones estéticas (funciones que dibujan columnas y piso)
+
+-Acotar la pantalla (algo así como la resolución pero en términos de caracteres) con SYSTEM. Una funcion interna: lo encontré en internet
+
+-Reacomodamientos de la lógica de pantallas
 
 
 ---
 
 ## Descripción
 
-Una simplificación del clásico *Space Invaders* pero desarrollado en C++ con consola de texto. Tenes que eliminar tres filas de enemigos que avanzan en el patrón de movimiento característico , mientras evitas sus ataques.
-
+Una simplificación del clásico *Space Invaders* pero desarrollado en C++ con consola de texto. Tenes que eliminar tres filas de enemigos que avanzan en el patrón de movimiento característico .
 
 
 ---
@@ -49,17 +50,13 @@ Una simplificación del clásico *Space Invaders* pero desarrollado en C++ con c
 
 ## Se implementaron ( al poder recibir daño) las diferentes resistencias de las clases hijas.
 
-Enemigo          → color RED,        resistencia 1 // estas todavías no implementadas
+Enemigo          → color RED,        resistencia 1 //
 >(hija)EnemigoMed   → color YELLOW,     resistencia 2
 >(hija)EnemigoDuro  → color LIGHTGREEN, resistencia 3
 
-El Centro de atención de este commit fue un bug de colisión: podía recibir daño y perder vidas pero no dañar (ni matar) a los enemigos del array.
-Eran varias cosas:
-- No había inicializado vivo en el constructor de Enemigo ( con lo cual nunca se seteaba el flag para ningun lado) 
-- La tolerancia de la colisión era demasiado estricta, después busqué y encontré la solución por ahí ( todavía me confunde esto de usar consola como si estuvieramos en una época pre-framebuffer, pero a la vez escribiendo en una interfaz con framebuffer).
-- Los enemigos eran inmortales visualmente ( agregué unos chequeadores para debbuggear que los dejo hasta ultima hora), eran como zombies que se redibujaban y disparaban aunque ya matados en la lógica. Era que el flag nunca se usaba en los métodos de dibujar, de borrar y de actualizarBalas.
 
-Hay otros detalles que estan comentados en el código.
+
+Otros detalles estan comentados en el código.
 
  
 

@@ -117,6 +117,12 @@ void GrupoEnemigos::chequearColisiones(Jugador& jugador) {
 			}
 	}
 }
+bool GrupoEnemigos::todosEliminados() {
+	for (int f = 0; f < FILAS; f++)
+		for (int c = 0; c < COLS; c++)
+			if (enemigos[f][c]->vivo) return false;
+	return true;
+}
 	
 	
 	

@@ -10,7 +10,7 @@ public:
 	int resistencia;
 	char simbolo;
 	int color;
-	bool vivo; // esto se agrega hoy
+	bool vivo; 
 	
 	clock_t tempo;
 	clock_t paso;

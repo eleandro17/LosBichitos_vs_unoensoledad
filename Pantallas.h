@@ -5,5 +5,7 @@
 
 void pantallaEntrada();
 bool pantallaFin();
-
+bool pantallaGanar();
+void dibujarColumnas();// dibujo unas columnas
+void dibujarPiso();//y un pisito
 #endif

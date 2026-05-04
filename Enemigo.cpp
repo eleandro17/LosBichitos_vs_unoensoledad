@@ -25,7 +25,7 @@ void Enemigo::dibujar() {
 
 void Enemigo::borrar() {
 	gotoxy(x, y);
-	textcolor(BLUE);
+	textcolor(DARKGRAY);
 	putch('-');
 }
 
