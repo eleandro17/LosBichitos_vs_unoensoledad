@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void pantallaEntrada() {
+void pantallaEntrada() {// no se como mostrar bien los caracteres con acento
 	clrscr();
 	 dibujarColumnas();
 	 dibujarPiso();
@@ -22,12 +22,12 @@ void pantallaEntrada() {
 	cout << "TP FINAL - Programacion en C++";
 	
 	gotoxy(15, 9);
-	cout << u8"Alumno: Emilio Gómez Viera";
+	cout << "Alumno: Emilio Gómez Viera";
 	
 	gotoxy(15, 11);
 	cout << "Instrucciones:";
 	gotoxy(17, 12);
-	cout << u8"A - movés a la izq";
+	cout << "A - movés a la izq";
 	gotoxy(17, 13);
 	cout << "D - movés a la derecha";
 	gotoxy(17, 14);
@@ -58,7 +58,7 @@ bool pantallaFin() {
 		
 	}
 }
-bool pantallaGanar() {
+bool pantallaGanar(int puntaje) {
 	clrscr();
 	
 	textcolor(RED);
@@ -70,6 +70,11 @@ bool pantallaGanar() {
 	cout << "R - Jugar de nuevo";
 	gotoxy(25, 12);
 	cout << "ESC - Salir";
+	
+	textcolor(LIGHTMAGENTA);
+	gotoxy(32, 15);
+	cprintf("Puntaje: %d", puntaje);
+	
 	
 	while (true) {
 		char tecla = getch();
@@ -83,7 +88,7 @@ void dibujarColumnas(){
 #define COLUMNAS 2
 	
 	int columnas[FILAS][COLUMNAS] = {
-		{1,1},{1,1},{1,1},{1,1},{1,1},{1,1},{1,1},{1,1},{1,1},{0,1},{0,1},{1,0},{1,0},{1,1},{1,1},
+		{1,1},{1,1},{1,0},{1,1},{1,1},{1,1},{0,1},{1,1},{0,1},{0,1},{0,1},{1,0},{1,0},{1,1},{1,1},
 		{1,1},	{1,1},{1,1},{1,1},{1,1},{1,1},{1,1},{1,1},{1,1},{0,1},{0,1},{1,0},{1,0},{1,1},{1,1}
 	};
 	
@@ -91,7 +96,7 @@ void dibujarColumnas(){
 	
 	for (int i = 0; i < FILAS; i++) {
 		for (int j = 0; j < COLUMNAS; j++) {
-			gotoxy(j+74, i+3); 
+			gotoxy(j+76, i+2); 
 			if (columnas[i][j] == 1) {
 				cprintf("°");   
 			} else {
@@ -99,14 +104,14 @@ void dibujarColumnas(){
 			}
 		}
 	}
-	textcolor(LIGHTCYAN);
+	
 	for (int i = 0; i < FILAS; i++) {
 		for (int j = 0; j < COLUMNAS; j++) {
-			gotoxy(j+5, i+3); 
+			gotoxy(j+4, i+3); 
 			if (columnas[i][j] == 1) {
-				cprintf("°");    
+				cprintf("@");    
 			} else {
-				cprintf("@ ");   
+				cprintf("°");   
 			}
 		}
 	}
@@ -117,7 +122,7 @@ void dibujarPiso() {
 	textcolor(YELLOW);
 	
 	for (int v = 0; v < ANCHO; v++) {
-		gotoxy(v + 7, 27);  // Y fijo, X crece
+		gotoxy(v + 7, 29);  
 		cprintf("¦");
 	}
 }

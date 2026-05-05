@@ -6,7 +6,7 @@
 class Bala {
 public:
 	int x, y;
-	int velocidad; // -1 sube (jugador), +1 baja (enemigo)
+	int velocidad; // -1 sube, +1 baja 
 	bool activa;
 	clock_t tempo;
 	clock_t paso;

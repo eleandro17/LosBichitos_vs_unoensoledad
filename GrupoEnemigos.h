@@ -1,7 +1,7 @@
 #ifndef GRUPOENEMIGOS_H
 #define GRUPOENEMIGOS_H
 
-//esta clase es para manejar el movimiento del bloque de enemigos, tambien para limpiar un poco el main
+//esta clase es para manejar el movimiento del bloque de enemigos,
 
 #include <ctime>
 #include "Enemigo.h"
@@ -28,7 +28,8 @@ public:
 	
 	void chequearColisiones(Jugador& jugador); //  nuevo
 	
-	bool todosEliminados();//metodo para chequearsi murieron todos
+	bool todosEliminados();// para chequearsi murieron todos
+	bool llegaronAlPiso();
 };
 
 #endif

@@ -5,7 +5,7 @@
 
 void pantallaEntrada();
 bool pantallaFin();
-bool pantallaGanar();
+bool pantallaGanar(int puntaje);// ahora recibe puntaje
 void dibujarColumnas();// dibujo unas columnas
 void dibujarPiso();//y un pisito
 #endif

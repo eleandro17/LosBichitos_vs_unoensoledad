@@ -7,13 +7,18 @@ UNL
  TP Final — Introducción a la Programación 
  Alumno: Emilio Leandro Gómez Viera
 
-6to COMMIT. 
--Agregada condición de victoria con un método previo(todosEliminados())
--Algunos ajustes y cuestiones estéticas (funciones que dibujan columnas y piso)
+7mo COMMIT. 
+-Agregados puntajesparciales, que luego se calculan y se muestran según las vidas perdidas con el método cosecharPuntaje()
+- puntajeparcial se muestra en HUD y lo otro se dibuja en la pantalla final
+-Saqué la lógica de juego a un fichero aparte
 
--Acotar la pantalla (algo así como la resolución pero en términos de caracteres) con SYSTEM. Una funcion interna: lo encontré en internet
+-Un bug de bala cuyo dibujado se congelaba en el trayecto: creo que se arregló separando borrado/dibujado( el orden de las llamadas), y en recibirImpacto() desactivando la bala del enemigo cuando muere.
 
--Reacomodamientos de la lógica de pantallas
+- La condicion de derrota que faltaba: la puse porque estaba en la consigna, porque al menos en esta versión de SpaceInvaders es medio dificil que suceda.
+
+-Reacomodamientos de la lógica de pantallas. Ajustes visuales
+
+- Cambio en el loop de actualizarBalas(): el anterior quedaba muy a merced de rand() como bloque. El actual mueve una bala activa por fila, dispara con un  rand() único por frame. De todos modos dejé el anterior comentado. 
 
 
 ---
@@ -39,6 +44,7 @@ Una simplificación del clásico *Space Invaders* pero desarrollado en C++ con c
 ## Estructura del proyecto
 
 ├── main.cpp
+├── LogicadeJuego.h/.cpp --->>>>> Esto es de este commit
 ├── Jugador.h / Jugador.cpp
 ├── Enemigo.h / Enemigo.cpp ---> acá creé 2 subclases que sobreescriben dibujar()
 ├── GrupoEnemigos.h / GrupoEnemigos.cpp

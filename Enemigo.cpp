@@ -36,16 +36,18 @@ void Enemigo::disparar() {
 }
 
 void Enemigo::actualizarBala() {
-	if (rand() % 1000 == 0) disparar();
+	if (rand() % 2000 == 0) disparar();// aca manejo la lluvia de balas
 	bala.mover();
 }
 
 bool Enemigo::recibirImpacto() {
-	gotoxy(12, 31);
-	cprintf("IMPACTO RECIBIDO res=%d", resistencia);  // un chequeador para debuggear,pero puede quedar, no es feo
+	gotoxy(5, 35);
+	cprintf("TIRO resist=%d", resistencia);  // un chequeador para debuggear,pero puede quedar, no molesta
 	resistencia--;
 	if (resistencia <= 0) {
 		vivo = false;
+		bala.borrar();      //borro y desactivo la bala cuando muere un bicho, 
+		bala.activa = false; //
 		borrar();
 		return true;
 	}

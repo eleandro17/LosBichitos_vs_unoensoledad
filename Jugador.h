@@ -1,7 +1,6 @@
 #ifndef JUGADOR_H
 #define JUGADOR_H
-#include "Bala.h"// añado el metodo de disparar
-
+#include "Bala.h"
 const int MAX_BALAS_JUGADOR = 3;
 
 class Jugador {
@@ -18,9 +17,10 @@ public:
 	void disparar();
 	void actualizarBalas();
 	
-	void recibirImpacto(); //  esto es lo 
-	bool estaVivo();       //  nuevo
-	void dibujarHUD(); //las vidas del jugador. Tal vez despues hago un HUD unificado para no tener tantos metodos dando vueltas
+	void recibirImpacto();
+	bool estaVivo();      
+	void dibujarHUD(); //las vidas del jugador. Y ahora el puntaje parcial
+	int puntajeParcial = 0;// Suma los tiros que dan con el enemigo. Al ser una  sola pantalla es trivial la sumatoria. Pero bueno
 };
 
 #endif
